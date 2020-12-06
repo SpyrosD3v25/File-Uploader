@@ -1,7 +1,7 @@
+#SPYROS CHATZIARGYROS SPYROSD3V25
+
 import PySimpleGUI as sg
 import os.path
-
-# First the window layout in 2 columns
 
 file_list_column = [
     [
@@ -16,14 +16,12 @@ file_list_column = [
     ],
 ]
 
-# For now will only show the name of the file that was chosen
 image_viewer_column = [
     [sg.Text("Choose an image from list on left:")],
     [sg.Text(size=(40, 1), key="-TOUT-")],
     [sg.Image(key="-IMAGE-")],
 ]
 
-# ----- Full layout -----
 layout = [
     [
         sg.Column(file_list_column),
@@ -34,12 +32,10 @@ layout = [
 
 window = sg.Window("Image Viewer", layout)
 
-# Run the Event Loop
 while True:
     event, values = window.read()
     if event == "Exit" or event == sg.WIN_CLOSED:
         break
-    # Folder name was filled in, make a list of files in the folder
     if event == "-FOLDER-":
         folder = values["-FOLDER-"]
         try:
@@ -55,7 +51,7 @@ while True:
             and f.lower().endswith((".png", ".gif"))
         ]
         window["-FILE LIST-"].update(fnames)
-    elif event == "-FILE LIST-":  # A file was chosen from the listbox
+    elif event == "-FILE LIST-": 
         try:
             filename = os.path.join(
                 values["-FOLDER-"], values["-FILE LIST-"][0]
